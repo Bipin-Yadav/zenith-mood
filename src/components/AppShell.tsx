@@ -4,7 +4,8 @@ import { motion } from "motion/react";
 import { useTheme } from "@/lib/store";
 import { BackgroundFX } from "./BackgroundFX";
 
-const NAV = [
+type NavItem = { to: string; label: string; icon: typeof Home; exact?: boolean };
+const NAV: NavItem[] = [
   { to: "/app", label: "Dashboard", icon: Home, exact: true },
   { to: "/app/explore", label: "Mood Explorer", icon: Compass },
   { to: "/app/generator", label: "Generator", icon: Sparkles },
@@ -12,7 +13,7 @@ const NAV = [
   { to: "/app/favorites", label: "Favorites", icon: Heart },
   { to: "/app/card", label: "Card Studio", icon: ImageIcon },
   { to: "/app/profile", label: "Profile", icon: User },
-] as const;
+];
 
 export function AppShell() {
   const { theme, toggle } = useTheme();
