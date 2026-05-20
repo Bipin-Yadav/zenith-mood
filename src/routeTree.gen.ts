@@ -9,38 +9,144 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppSearchRouteImport } from './routes/app.search'
+import { Route as AppProfileRouteImport } from './routes/app.profile'
+import { Route as AppGeneratorRouteImport } from './routes/app.generator'
+import { Route as AppFavoritesRouteImport } from './routes/app.favorites'
+import { Route as AppExploreRouteImport } from './routes/app.explore'
+import { Route as AppCardRouteImport } from './routes/app.card'
 
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSearchRoute = AppSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppGeneratorRoute = AppGeneratorRouteImport.update({
+  id: '/generator',
+  path: '/generator',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppFavoritesRoute = AppFavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppExploreRoute = AppExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCardRoute = AppCardRouteImport.update({
+  id: '/card',
+  path: '/card',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/card': typeof AppCardRoute
+  '/app/explore': typeof AppExploreRoute
+  '/app/favorites': typeof AppFavoritesRoute
+  '/app/generator': typeof AppGeneratorRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/search': typeof AppSearchRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app/card': typeof AppCardRoute
+  '/app/explore': typeof AppExploreRoute
+  '/app/favorites': typeof AppFavoritesRoute
+  '/app/generator': typeof AppGeneratorRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/search': typeof AppSearchRoute
+  '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/card': typeof AppCardRoute
+  '/app/explore': typeof AppExploreRoute
+  '/app/favorites': typeof AppFavoritesRoute
+  '/app/generator': typeof AppGeneratorRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/search': typeof AppSearchRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/app/card'
+    | '/app/explore'
+    | '/app/favorites'
+    | '/app/generator'
+    | '/app/profile'
+    | '/app/search'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/app/card'
+    | '/app/explore'
+    | '/app/favorites'
+    | '/app/generator'
+    | '/app/profile'
+    | '/app/search'
+    | '/app'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/app/card'
+    | '/app/explore'
+    | '/app/favorites'
+    | '/app/generator'
+    | '/app/profile'
+    | '/app/search'
+    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,12 +154,94 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/search': {
+      id: '/app/search'
+      path: '/search'
+      fullPath: '/app/search'
+      preLoaderRoute: typeof AppSearchRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/profile': {
+      id: '/app/profile'
+      path: '/profile'
+      fullPath: '/app/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/generator': {
+      id: '/app/generator'
+      path: '/generator'
+      fullPath: '/app/generator'
+      preLoaderRoute: typeof AppGeneratorRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/favorites': {
+      id: '/app/favorites'
+      path: '/favorites'
+      fullPath: '/app/favorites'
+      preLoaderRoute: typeof AppFavoritesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/explore': {
+      id: '/app/explore'
+      path: '/explore'
+      fullPath: '/app/explore'
+      preLoaderRoute: typeof AppExploreRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/card': {
+      id: '/app/card'
+      path: '/card'
+      fullPath: '/app/card'
+      preLoaderRoute: typeof AppCardRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppCardRoute: typeof AppCardRoute
+  AppExploreRoute: typeof AppExploreRoute
+  AppFavoritesRoute: typeof AppFavoritesRoute
+  AppGeneratorRoute: typeof AppGeneratorRoute
+  AppProfileRoute: typeof AppProfileRoute
+  AppSearchRoute: typeof AppSearchRoute
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppCardRoute: AppCardRoute,
+  AppExploreRoute: AppExploreRoute,
+  AppFavoritesRoute: AppFavoritesRoute,
+  AppGeneratorRoute: AppGeneratorRoute,
+  AppProfileRoute: AppProfileRoute,
+  AppSearchRoute: AppSearchRoute,
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
