@@ -37,6 +37,7 @@ Here is a visual tour of the MoodHub experience. E.g., add your screenshot files
 ### 🎨 Aesthetic Card Studio
 > Create Instagram-ready quote cards with custom gradients, premium typography, and instant export.
 *Placeholder for your own image:* `[Aesthetic Card Studio]`
+![card studio](https://github.com/user-attachments/assets/f590973e-fc72-4e4d-b466-ef557359f7b6)
 
 ### 🌬️ Soothing Breathing Space (Breathing Bubble)
 > Synchronize your breathing to clear stress using audio synthesis and premium visual feedback.
