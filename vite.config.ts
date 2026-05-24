@@ -5,14 +5,19 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import { cloudflare } from "@cloudflare/vite-plugin";
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [
-    tanstackStart({
-      server: { entry: "server" },
-    }),
+    tanstackStart(),
     react(),
     tailwindcss(),
     tsconfigPaths(),
-    cloudflare(),
+    ...(command === "build" ? [cloudflare()] : []),
   ],
-});
+
+  optimizeDeps: {
+    exclude: [
+      "@tanstack/start-server-core",
+      "@tanstack/start-client-core",
+    ],
+  },
+}));
