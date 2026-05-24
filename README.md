@@ -17,7 +17,7 @@ Here is a visual tour of the MoodHub experience. E.g., add your screenshot files
 
 ### 📊 Dashboard Overview
 > Your personal motivation control panel with daily streaks and quick actions.
-*Placeholder for your own image:* `[Dashboard]`
+https://github.com/user-attachments/assets/3bc79795-b6e2-4f44-89e9-78664793baba
 
 ### 🧭 Mood Explorer
 > Pick a vibe (Coding Flow, Heartbreak, Energetic) and discover custom-curated quotes.
