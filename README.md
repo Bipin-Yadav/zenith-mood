@@ -13,7 +13,7 @@ Here is a visual tour of the MoodHub experience. E.g., add your screenshot files
 ### 💫 Landing Page & Scroll-Activated Storytelling Hero
 > An immersive, Vercel-style interactive storytelling journey driven by the user's scroll.
 ![Landing Page / Storytelling Hero Screen Shot](https://github.com/user-attachments/assets/9a454826-44fc-4dcd-9771-07d1b4f75043)  
-*Placeholder for your own image:* `[Landing Page / Storytelling Hero]`
+
 
 ### 📊 Dashboard Overview
 > Your personal motivation control panel with daily streaks and quick actions.
