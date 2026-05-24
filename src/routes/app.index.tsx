@@ -4,6 +4,7 @@ import { Flame, Heart, Sparkles, History, ArrowRight } from "lucide-react";
 import { MOODS, quoteOfTheDay } from "@/data/quotes";
 import { useFavorites, useHistory, useMoodHistory, useStreak } from "@/lib/store";
 import { QuoteCard } from "@/components/QuoteCard";
+import { BreathingBubble } from "@/components/BreathingBubble";
 
 export const Route = createFileRoute("/app/")({ component: Dashboard });
 
@@ -50,6 +51,11 @@ function Dashboard() {
           <span className="text-gradient">“</span>{qotd.text}<span className="text-gradient">”</span>
         </p>
         <div className="mt-5 text-sm text-muted-foreground">— {qotd.author}</div>
+      </motion.section>
+
+      {/* Breathing Bubble */}
+      <motion.section initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
+        <BreathingBubble />
       </motion.section>
 
       {/* Mood grid */}
