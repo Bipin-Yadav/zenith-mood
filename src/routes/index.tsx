@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { ArrowRight, Sparkles, Heart, Wand2, Volume2, Search, Image as ImageIcon } from "lucide-react";
 import { BackgroundFX } from "@/components/BackgroundFX";
-import { quoteOfTheDay } from "@/data/quotes";
+import { quoteOfTheDay, MOODS } from "@/data/quotes";
+import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
