@@ -20,7 +20,19 @@ Here is a visual tour of the MoodHub experience. E.g., add your screenshot files
 ![Dashboard Overview](https://github.com/user-attachments/assets/3bc79795-b6e2-4f44-89e9-78664793baba)
 ### 🧭 Mood Explorer
 > Pick a vibe (Coding Flow, Heartbreak, Energetic) and discover custom-curated quotes.
-*Placeholder for your own image:* `[Mood Explorer]`
+
+<table width="100%">
+  <tr>
+    <td width="65%" align="center" style="vertical-align: middle;">
+      <img src="https://github.com/user-attachments/assets/0c4ae577-3bf9-4467-a780-4aa7b20b5d71" alt="Mood Explorer Desktop View" style="max-width:100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);" />
+      <br /><em>Desktop View</em>
+    </td>
+    <td width="35%" align="center" style="vertical-align: middle;">
+      <img src="https://github.com/user-attachments/assets/367b223f-36a5-46a9-9be8-c5ba6e1269cb" alt="Mood Explorer Mobile View" style="max-width:100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);" />
+      <br /><em>Mobile View</em>
+    </td>
+  </tr>
+</table>
 
 ### 🎨 Aesthetic Card Studio
 > Create Instagram-ready quote cards with custom gradients, premium typography, and instant export.
