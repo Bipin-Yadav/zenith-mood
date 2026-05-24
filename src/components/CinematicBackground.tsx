@@ -111,8 +111,11 @@ export function CinematicBackground({ scrollProgress = 0 }: CinematicBackgroundP
 
       // 1. Synchronize Video playback dynamically to scroll progress with buttery momentum
       if (video.duration) {
-        // Scrub the full video duration (all 8 seconds) so the user experiences the complete background story
-        const targetTime = scrollProgressRef.current * video.duration;
+        // Map the scrollProgress so that the video completes its full duration (8s)
+        // exactly when the storytelling is complete and the CTA buttons are fully revealed (scrollProgress = 0.70)
+        const completionThreshold = 0.70;
+        const mappedProgress = Math.min(1.0, scrollProgressRef.current / completionThreshold);
+        const targetTime = mappedProgress * video.duration;
         const diff = targetTime - video.currentTime;
         
         // Easing factor (0.08 provides luxurious organic inertia)
