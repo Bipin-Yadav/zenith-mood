@@ -116,8 +116,8 @@ function Landing() {
 
   return (
     <div className="relative min-h-screen">
-      {/* Scroll track wrapper for scroll-activated storytelling hero (480vh tall) */}
-      <div ref={scrollContainerRef} className="relative h-[480vh] z-0">
+      {/* Scroll track wrapper for scroll-activated storytelling hero (220vh tall) */}
+      <div ref={scrollContainerRef} className="relative h-[220vh] z-0">
         
         {/* Sticky container that stays fixed in viewport while user scrolls */}
         <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between bg-[#0c0514]">
