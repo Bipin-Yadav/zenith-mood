@@ -111,7 +111,10 @@ export function CinematicBackground({ scrollProgress = 0 }: CinematicBackgroundP
 
       // 1. Synchronize Video playback dynamically to scroll progress with buttery momentum
       if (video.duration) {
-        const targetTime = scrollProgressRef.current * video.duration;
+        // Limit the maximum scrubbed duration to 4.0s (out of the 8s total)
+        // This cuts the scroll-scrub rate in half so it doesn't pass too many frames too quickly
+        const maxDurationToScrub = Math.min(4.0, video.duration);
+        const targetTime = scrollProgressRef.current * maxDurationToScrub;
         const diff = targetTime - video.currentTime;
         
         // Easing factor (0.08 provides luxurious organic inertia)

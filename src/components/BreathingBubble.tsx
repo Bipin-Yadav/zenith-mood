@@ -43,11 +43,47 @@ export function BreathingBubble() {
     }
   };
 
-  const playTone = (frequency: number, duration: number, type: "sine" | "triangle" = "triangle") => {
-    if (!soundEnabled || !audioCtxRef.current || !gainNodeRef.current) return;
+  const getPhaseToneParams = (p: BreathingPhase): { freq: number; type: "sine" | "triangle" } => {
+    switch (p) {
+      case "inhale":
+        return { freq: 220, type: "triangle" };
+      case "holdIn":
+        return { freq: 277.18, type: "sine" };
+      case "exhale":
+        return { freq: 196, type: "triangle" };
+      case "holdOut":
+        return { freq: 164.81, type: "sine" };
+      default:
+        return { freq: 220, type: "triangle" };
+    }
+  };
+
+  const playFeedbackChime = () => {
+    if (!audioCtxRef.current) return;
+    try {
+      const osc = audioCtxRef.current.createOscillator();
+      const gain = audioCtxRef.current.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(528, audioCtxRef.current.currentTime);
+      gain.gain.setValueAtTime(0, audioCtxRef.current.currentTime);
+      gain.gain.linearRampToValueAtTime(0.05, audioCtxRef.current.currentTime + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtxRef.current.currentTime + 0.6);
+      osc.connect(gain);
+      gain.connect(audioCtxRef.current.destination);
+      osc.start();
+      osc.stop(audioCtxRef.current.currentTime + 0.6);
+    } catch (e) {
+      console.warn("Feedback chime error:", e);
+    }
+  };
+
+  const playTone = (frequency: number, duration: number, type: "sine" | "triangle" = "triangle", forceSound = false) => {
+    if ((!soundEnabled && !forceSound) || !audioCtxRef.current || !gainNodeRef.current) return;
     try {
       if (oscillatorRef.current) {
-        oscillatorRef.current.stop();
+        try {
+          oscillatorRef.current.stop();
+        } catch (_) {}
         oscillatorRef.current.disconnect();
       }
 
@@ -82,6 +118,13 @@ export function BreathingBubble() {
     if (gainNodeRef.current && audioCtxRef.current) {
       gainNodeRef.current.gain.cancelScheduledValues(audioCtxRef.current.currentTime);
       gainNodeRef.current.gain.exponentialRampToValueAtTime(0.0001, audioCtxRef.current.currentTime + 0.1);
+    }
+    if (oscillatorRef.current) {
+      try {
+        oscillatorRef.current.stop();
+      } catch (_) {}
+      oscillatorRef.current.disconnect();
+      oscillatorRef.current = null;
     }
   };
 
@@ -171,19 +214,44 @@ export function BreathingBubble() {
 
   const toggleSound = () => {
     initAudio();
-    if (audioCtxRef.current && audioCtxRef.current.state === "suspended") {
-      audioCtxRef.current.resume();
+    const nextSoundEnabled = !soundEnabled;
+    setSoundEnabled(nextSoundEnabled);
+    
+    const triggerAudio = () => {
+      if (nextSoundEnabled) {
+        if (isPlaying && phase !== "idle" && timeLeft > 0) {
+          const { freq, type } = getPhaseToneParams(phase);
+          playTone(freq, timeLeft, type, true);
+        } else {
+          playFeedbackChime();
+        }
+      } else {
+        stopTone();
+      }
+    };
+
+    if (audioCtxRef.current) {
+      if (audioCtxRef.current.state === "suspended") {
+        audioCtxRef.current.resume().then(triggerAudio).catch(err => {
+          console.warn("Failed to resume audio context:", err);
+          triggerAudio();
+        });
+      } else {
+        triggerAudio();
+      }
     }
-    setSoundEnabled(prev => !prev);
   };
 
   const startSession = () => {
     initAudio();
-    if (audioCtxRef.current && audioCtxRef.current.state === "suspended") {
-      audioCtxRef.current.resume();
-    }
     setIsPlaying(true);
     setPhase("idle");
+    
+    if (audioCtxRef.current && audioCtxRef.current.state === "suspended") {
+      audioCtxRef.current.resume().catch(err => {
+        console.warn("Failed to resume audio context during startSession:", err);
+      });
+    }
   };
 
   const pauseSession = () => {
