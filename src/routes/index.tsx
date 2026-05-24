@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { ArrowRight, Sparkles, Heart, Wand2, Volume2, Search, Image as ImageIcon } from "lucide-react";
 import { CinematicBackground } from "@/components/CinematicBackground";
-import { quoteOfTheDay } from "@/data/quotes";
+import { BackgroundFX } from "@/components/BackgroundFX";
+import { quoteOfTheDay, MOODS } from "@/data/quotes";
 import { useState, useEffect, useRef } from "react";
 
 export const Route = createFileRoute("/")({
@@ -18,11 +19,15 @@ export const Route = createFileRoute("/")({
 });
 
 function Landing() {
-  const qotd = quoteOfTheDay();
+  const [qotd, setQotd] = useState<ReturnType<typeof quoteOfTheDay> | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const targetProgressRef = useRef(0);
   const currentProgressRef = useRef(0);
+
+  useEffect(() => {
+    setQotd(quoteOfTheDay());
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -183,13 +188,19 @@ function Landing() {
           className="mx-auto max-w-3xl">
           <div className="relative rounded-3xl glass-strong p-8 shadow-glow md:p-12">
             <div className="mb-3 text-xs uppercase tracking-[0.2em] text-muted-foreground">Quote of the day</div>
-            <p className="font-display text-3xl leading-tight md:text-4xl">
-              <span className="text-gradient">“</span>{qotd.text}<span className="text-gradient">”</span>
-            </p>
-            <div className="mt-6 flex items-center justify-between">
-              <div className="text-sm text-muted-foreground">— {qotd.author}</div>
-              <Link to="/app" className="text-sm text-primary hover:underline">Open dashboard →</Link>
-            </div>
+            {qotd ? (
+              <>
+                <p className="font-display text-3xl leading-tight md:text-4xl">
+                  <span className="text-gradient">"</span>{qotd.text}<span className="text-gradient">"</span>
+                </p>
+                <div className="mt-6 flex items-center justify-between">
+                  <div className="text-sm text-muted-foreground">— {qotd.author}</div>
+                  <Link to="/app" className="text-sm text-primary hover:underline">Open dashboard →</Link>
+                </div>
+              </>
+            ) : (
+              <div className="h-24 animate-pulse rounded-xl bg-muted/40" />
+            )}
           </div>
         </motion.div>
       </section>
@@ -223,19 +234,52 @@ function Landing() {
         </div>
       </section>
 
-<footer className="border-t border-border/60 py-8 text-center text-xs text-muted-foreground">
-  <span>
-    Developed with ❤️ by{" "}
-    <a
-      href="https://linkedin.com/in/bipin-yadav-612b102bb"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="font-medium underline underline-offset-4 transition hover:text-cyan-400"
-    >
-      Bipin Yadav
-    </a>
-  </span>
-</footer>
+      {/* Moods */}
+      <section id="moods" className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="mb-10 text-center">
+          <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Find your vibe</div>
+          <h2 className="mt-2 font-display text-3xl font-semibold md:text-4xl">Pick a mood, get a quote</h2>
+          <p className="mx-auto mt-3 max-w-lg text-sm text-muted-foreground">
+            From motivation to heartbreak, each mood has a curated collection of quotes to match exactly how you feel right now.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+          {MOODS.map((mood, i) => (
+            <motion.div
+              key={mood.id}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.04 }}
+            >
+              <Link
+                to="/app/explore"
+                search={{ mood: mood.id }}
+                className="group flex flex-col items-center gap-2 rounded-2xl glass p-5 transition hover:shadow-glow"
+              >
+                <div className={`grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br ${mood.gradient} text-xl shadow-lg`}>
+                  {mood.emoji}
+                </div>
+                <span className="text-sm font-medium text-foreground">{mood.label}</span>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      <footer className="border-t border-border/60 py-8 text-center text-xs text-muted-foreground">
+        <span>
+          Developed with ❤️ by{" "}
+          <a
+            href="https://linkedin.com/in/bipin-yadav-612b102bb"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium underline underline-offset-4 transition hover:text-cyan-400"
+          >
+            Bipin Yadav
+          </a>
+        </span>
+      </footer>
     </div>
   );
 }
