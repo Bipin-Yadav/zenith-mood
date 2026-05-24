@@ -171,11 +171,17 @@ export function BreathingBubble() {
 
   const toggleSound = () => {
     initAudio();
+    if (audioCtxRef.current && audioCtxRef.current.state === "suspended") {
+      audioCtxRef.current.resume();
+    }
     setSoundEnabled(prev => !prev);
   };
 
   const startSession = () => {
     initAudio();
+    if (audioCtxRef.current && audioCtxRef.current.state === "suspended") {
+      audioCtxRef.current.resume();
+    }
     setIsPlaying(true);
     setPhase("idle");
   };
