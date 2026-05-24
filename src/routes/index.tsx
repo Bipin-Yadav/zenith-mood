@@ -18,7 +18,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Landing() {
-  const qotd = quoteOfTheDay();
+  const [qotd, setQotd] = useState<ReturnType<typeof quoteOfTheDay> | null>(null);
+  useEffect(() => { setQotd(quoteOfTheDay()); }, []);
   return (
     <div className="relative min-h-screen overflow-hidden">
       <BackgroundFX />
