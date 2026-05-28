@@ -8,7 +8,7 @@ Developed with ❤️ by **[Bipin Yadav](https://linkedin.com/in/bipin-yadav-612
 
 ## 📸 Screenshots Showcase
 
-Here is a visual tour of the MoodHub experience. E.g., add your screenshot files inside the placeholders below:
+Here is a visual tour of the MoodHub experience.
 
 ### 💫 Landing Page & Scroll-Activated Storytelling Hero
 > An immersive, Vercel-style interactive storytelling journey driven by the user's scroll.
