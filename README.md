@@ -3,6 +3,7 @@
 A premium, highly interactive motivation hub and quote design studio built with cutting-edge web technologies. Pick a vibe, discover curated lines, design aesthetic cards for social sharing, listen to text-to-speech narrations, and synchronize your heart rate with our mindfulness breathing space.
 
 Developed with ❤️ by **[Bipin Yadav](https://linkedin.com/in/bipin-yadav-612b102bb)**.
+🌐 **Live Application**: [https://nep-survey-89184.web.app/](https://zenith-mood.vercel.app/)
 
 ---
 
