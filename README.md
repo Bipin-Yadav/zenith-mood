@@ -1,6 +1,6 @@
 # 🌌 MoodHub — AI-Powered Mood Quote Studio & Mindfulness Space
 
-A premium, highly interactive motivation hub and quote design studio built with cutting-edge web technologies. Pick a vibe, discover curated lines, design aesthetic cards for social sharing, listen to text-to-speech narrations, and synchronize your heart rate with our mindfulness breathing space..
+A premium, highly interactive motivation hub and quote design studio built with cutting-edge web technologies. Pick a vibe, discover curated lines, design aesthetic cards for social sharing, listen to text-to-speech narrations, and synchronize your heart rate with our mindfulness breathing space.
 
 🌐 **Live Application**: [https://QuoteHub.app/](https://zenith-mood.vercel.app/)
 
